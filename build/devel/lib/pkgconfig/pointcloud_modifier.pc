@@ -1,0 +1,8 @@
+prefix=/home/hosuripa/Morai_ws/src/pointcloud_modifier/build/devel
+
+Name: pointcloud_modifier
+Description: Description of pointcloud_modifier
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

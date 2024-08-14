@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20240730-1155-Experimental"
+	Name="hosuripa-B550M-AORUS-ELITE"
+	Generator="ctest-3.16.3"
+	CompilerName="/usr/bin/c++"
+	CompilerVersion="9.4.0"
+	OSName="Linux"
+	Hostname="hosuripa-B550M-AORUS-ELITE"
+	OSRelease="5.15.0-117-generic"
+	OSVersion="#127~20.04.1-Ubuntu SMP Thu Jul 11 15:36:12 UTC 2024"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="33"
+	ProcessorCacheSize="512"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="65535"
+	TotalPhysicalMemory="15905"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="4385.35"
+	>
+	<Testing>
+		<StartDateTime>Jul 30 20:55 KST</StartDateTime>
+		<StartTestTime>1722340555</StartTestTime>
+		<TestList/>
+		<EndDateTime>Jul 30 20:55 KST</EndDateTime>
+		<EndTestTime>1722340555</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

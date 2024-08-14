@@ -1,0 +1,5 @@
+<launch>
+    <!-- IMU 데이터를 수신하여 퍼블리시 속도를 계산하는 노드 -->
+    <node name="imu_noise_adder" pkg="imu_modifier" type="imu_noise_adder.py" output="screen" />
+    <node name="imu_Hz_calculator" pkg="imu_modifier" type="imu_Hz_calculator.py" output="screen" />
+</launch>

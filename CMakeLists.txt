@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(imu_modifier)
 
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
@@ -165,6 +166,7 @@ include_directories(
 catkin_install_python(PROGRAMS 
   scripts/imu_noise_adder.py
   scripts/imu_Hz_calculator.py
+  scripts/slam_planning.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 ## Mark executables for installation

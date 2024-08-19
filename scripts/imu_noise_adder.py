@@ -92,6 +92,7 @@ def imu_callback(imu_msg):
     # 현재 메시지의 타임스탬프를 seconds와 nanoseconds로 계산
     current_time = imu_msg.header.stamp.secs + imu_msg.header.stamp.nsecs * 1e-9
 
+    
     # 마지막 타임스탬프와 현재 타임스탬프 비교 후 순서가 맞지 않으면 삭제
     if last_timestamp is not None:
         last_time = last_timestamp
@@ -99,6 +100,15 @@ def imu_callback(imu_msg):
             rospy.logwarn(f"imu message in disorder! Duplicate or out-of-order timestamp detected. Ignoring message. current_time: {current_time:.9f}, last_timestamp: {last_time:.9f}")
             return
     
+    """
+    # 마지막 타임스탬프와 현재 타임스탬프 비교 후 순서가 맞지 않으면 삭제
+    if last_timestamp is not None:
+        last_time = last_timestamp
+        if current_time <= last_time:
+            imu_msg.header.stamp = rospy.Time.now()
+            rospy.logwarn(f"imu message in disorder! Duplicate or out-of-order timestamp detected. Ignoring message. current_time: {current_time:.9f}, last_timestamp: {last_time:.9f}")
+    """       
+
     last_timestamp = current_time
 
     # 노이즈가 추가된 IMU 메시지를 deque에 추가하고 타임스탬프 기준으로 정렬

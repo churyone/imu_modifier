@@ -1,7 +1,14 @@
 <launch>
-    <!-- IMU 데이터를 수신하여 퍼블리시 속도를 계산하는 노드 -->
-    <node name="imu_noise_adder" pkg="imu_modifier" type="imu_noise_adder.py" output="screen" />
-    <node name="imu_Hz_calculator" pkg="imu_modifier" type="imu_Hz_calculator.py" output="screen" />
-    
-    <!-- <node name="slam_planning" pkg="imu_modifier" type="slam_planning.py" output="screen" /> -->
+    <!-- 프로젝트 이름을 인자로 받아서 사용할 수 있도록 설정 -->
+    <arg name="project" default="imu_modifier" />
+
+    <!-- YAML 파일에서 파라미터 로드 -->
+    <rosparam file="$(find imu_modifier)/config/costmap_params.yaml" command="load"/>
+
+    <!-- 각 노드를 실행 -->
+    <node pkg="$(arg project)" type="imu_noise_adder.py" name="imu_noise_adder"/>
+    <node pkg="$(arg project)" type="imu_Hz_calculator.py" name="imu_Hz_calculator"/>
+    <node pkg="$(arg project)" type="create_costmap_node" name="costmap" output="screen" />
+    <!-- 주석 처리된 노드 -->
+    <!-- <node pkg="$(arg project)" type="slam_planning.py" name="slam_planning" output="screen"/> -->
 </launch>

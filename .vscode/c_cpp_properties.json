@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/hosuripa/shark_ws/devel/include/**",
+        "/home/hosuripa/Morai_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/hosuripa/Morai_ws/src/LIO-SAM/include/**",
+        "/home/hosuripa/shark_ws/src/liorf_morai/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

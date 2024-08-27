@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/hosuripa/shark_ws/devel/lib/python3/dist-packages",
+        "/home/hosuripa/Morai_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/hosuripa/shark_ws/devel/lib/python3/dist-packages",
+        "/home/hosuripa/Morai_ws/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}

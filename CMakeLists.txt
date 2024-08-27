@@ -11,10 +11,16 @@ project(imu_modifier)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
+  costmap_2d
+  pcl_ros
+  pcl_conversions
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+find_package(
+  PCL REQUIRED
+)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -107,6 +113,9 @@ catkin_package(
 #  LIBRARIES imu_modifier
 #  CATKIN_DEPENDS rospy sensor_msgs
 #  DEPENDS system_lib
+  LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS roscpp sensor_msgs costmap_2d pcl_ros pcl_conversions
+  DEPENDS PCL
 )
 
 ###########
@@ -118,6 +127,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -134,6 +144,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/imu_modifier_node.cpp)
+add_executable(create_costmap_node src/create_costmap.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -167,7 +178,6 @@ catkin_install_python(PROGRAMS
   scripts/imu_noise_adder.py
   scripts/imu_Hz_calculator.py
   scripts/slam_planning.py
-  scripts/grid_gps.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 ## Mark executables for installation
@@ -207,6 +217,10 @@ catkin_install_python(PROGRAMS
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
+target_link_libraries(create_costmap_node
+  ${catkin_LIBRARIES}
+  ${PCL_LIBRARIES}
+)
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

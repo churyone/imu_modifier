@@ -97,7 +97,7 @@ def imu_callback(imu_msg):
     if last_timestamp is not None:
         last_time = last_timestamp
         if current_time <= last_time:
-            rospy.logwarn(f"imu message in disorder! Duplicate or out-of-order timestamp detected. Ignoring message. current_time: {current_time:.9f}, last_timestamp: {last_time:.9f}")
+            # rospy.logwarn(f"imu message in disorder! Duplicate or out-of-order timestamp detected. Ignoring message. current_time: {current_time:.9f}, last_timestamp: {last_time:.9f}")
             return
     
     """

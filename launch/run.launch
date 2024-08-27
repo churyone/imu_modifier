@@ -9,6 +9,7 @@
     <node pkg="$(arg project)" type="slam_planning.py" name="slam_planning" output="screen"/>
     <node pkg="$(arg project)" type="imu_noise_adder.py" name="imu_noise_adder"/>
     <node pkg="$(arg project)" type="imu_Hz_calculator.py" name="imu_Hz_calculator"/>
+    <node pkg="$(arg project)" type="get_plan.py" name="get_plan" output="screen"/>
     <!--<node pkg="$(arg project)" type="create_costmap_node" name="costmap" output="screen" /> --> 
     <!-- 주석 처리된 노드 -->
     <!-- <node pkg="$(arg project)" type="slam_planning.py" name="slam_planning" output="screen"/> -->

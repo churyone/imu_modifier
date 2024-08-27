@@ -3,13 +3,15 @@
     <arg name="project" default="imu_modifier" />
 
     <!-- YAML 파일에서 파라미터 로드 -->
-    <!--<rosparam file="$(find imu_modifier)/config/costmap_params.yaml" command="load"/>-->
+    <rosparam file="$(find imu_modifier)/config/costmap_params.yaml" command="load"/>
 
     <!-- 각 노드를 실행 -->
     <node pkg="$(arg project)" type="slam_planning.py" name="slam_planning" output="screen"/>
+    <node pkg="$(arg project)" type="2d_map_broadcast.py" name="broadcast_2d_map" output="screen"/>   
     <node pkg="$(arg project)" type="imu_noise_adder.py" name="imu_noise_adder"/>
     <node pkg="$(arg project)" type="imu_Hz_calculator.py" name="imu_Hz_calculator"/>
     <node pkg="$(arg project)" type="get_plan.py" name="get_plan" output="screen"/>
+    <node pkg="move_base" type="move_base" name="move_base" output="screen"/>
     <!--<node pkg="$(arg project)" type="create_costmap_node" name="costmap" output="screen" /> --> 
     <!-- 주석 처리된 노드 -->
     <!-- <node pkg="$(arg project)" type="slam_planning.py" name="slam_planning" output="screen"/> -->

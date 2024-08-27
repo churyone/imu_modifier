@@ -3,7 +3,7 @@
 import rospy
 import numpy as np
 import sensor_msgs.point_cloud2 as pc2
-from sensor_msgs.msg import PointCloud2
+from sensor_msgs.msg import PointCloud2, NavsatFix
 from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import Pose
 
@@ -20,8 +20,9 @@ def create_fixed_size_occupancy_grid(points, resolution=0.2, grid_width=300, gri
     center_x = grid_width // 2
     center_y = grid_height // 2
 
+    """
     # 각 포인트를 그리드 셀에 매핑하여 장애물(100)로 설정
-    indices = np.floor(points_2d / resolution).astype(int)
+    indices = np.ceil(points_2d / resolution).astype(int)
     indices[:, 0] += center_x
     indices[:, 1] += center_y
 
@@ -31,6 +32,37 @@ def create_fixed_size_occupancy_grid(points, resolution=0.2, grid_width=300, gri
     occupancy_grid[indices[valid_indices, 1], indices[valid_indices, 0]] = 100  # 해당 셀을 차지 상태로 설정
 
     return occupancy_grid, resolution, grid_width, grid_height
+    """
+    # 각 포인트를 그리드 셀에 매핑하여 장애물(100)로 설정
+    # 그리드 초기화
+    occupancy_grid_floor = np.zeros((grid_height, grid_width), dtype=int)
+    occupancy_grid_ceil = np.zeros((grid_height, grid_width), dtype=int)
+
+    # 포인트 좌표를 그리드 셀 단위로 변환 (내림)
+    indices_floor = np.floor(points_2d / resolution).astype(int)
+    indices_floor[:, 0] += center_x
+    indices_floor[:, 1] += center_y
+
+    # 포인트 좌표를 그리드 셀 단위로 변환 (올림)
+    indices_ceil = np.ceil(points_2d / resolution).astype(int)
+    indices_ceil[:, 0] += center_x
+    indices_ceil[:, 1] += center_y
+
+    # 내림을 적용한 포인트를 그리드에 할당
+    for idx in indices_floor:
+        x, y = idx
+        if 0 <= x < grid_width and 0 <= y < grid_height:
+            occupancy_grid_floor[y, x] = 100  # 장애물로 설정
+
+    # 올림을 적용한 포인트를 그리드에 할당
+    for idx in indices_ceil:
+        x, y = idx
+        if 0 <= x < grid_width and 0 <= y < grid_height:
+            occupancy_grid_ceil[y, x] = 100  # 장애물로 설정
+
+    # 최종 그리드 생성: 내림 또는 올림 중 하나라도 100이면 최종 맵에 100을 설정
+    occupancy_grid_final = np.where((occupancy_grid_floor == 100) | (occupancy_grid_ceil == 100), 100, 0)
+
 
 # PointCloud2 메시지 콜백 함수
 def point_cloud_callback(msg):
@@ -64,6 +96,11 @@ def point_cloud_callback(msg):
 
     # Occupancy Grid Map 퍼블리시
     occupancy_grid_publisher.publish(grid_msg)
+
+def point_to_gps(points,height_threshold=(0, 1.5)):
+    filtered_points = points[(points[:, 2] > height_threshold[0]) & (points[:, 2] < height_threshold[1])]
+    points_2d = filtered_points[:, :2]  # XY 평면으로 투영
+    
 
 # ROS 노드 초기화
 rospy.init_node('point_cloud_to_occupancy_grid', anonymous=True)

@@ -167,6 +167,7 @@ catkin_install_python(PROGRAMS
   scripts/imu_noise_adder.py
   scripts/imu_Hz_calculator.py
   scripts/slam_planning.py
+  scripts/grid_gps.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 ## Mark executables for installation
